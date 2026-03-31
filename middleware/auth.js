@@ -6,7 +6,7 @@ function auth(req, res, next) {
     const token = req.header('Authorization');
 
     if (!token) {
-        return res.status(401).json({ message: "Access Denied - No Token" });
+        return res.status(401).json({ message: "Authentication token is missing" });
     }
 
     try {
