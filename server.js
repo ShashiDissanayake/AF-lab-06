@@ -41,19 +41,32 @@ app.get('/', (req, res) => {
 
 // example EJS route (test)
 app.get('/home', (req, res) => {
-    res.render('home', { name: "Kasun" });
+    res.render('home', { name: "Sewmini" });
 });
 
 // ================= AUTH ROUTE =================
 
 // LOGIN → token generate
 app.post('/login', (req, res) => {
-    const { username } = req.body;
+    const { username, password } = req.body;
 
-    if (!username) {
-        return res.status(400).json({ message: "Username required" });
+    // basic validation
+    if (!username || !password) {
+        return res.status(400).json({ message: "Username and password required" });
     }
 
+    // dummy user 
+    const validUser = {
+        username: "Sewmini",
+        password: "1234"
+    };
+
+    // check credentials
+    if (username !== validUser.username || password !== validUser.password) {
+        return res.status(401).json({ message: "Invalid credentials" });
+    }
+
+    // generate token
     const user = {
         id: 1,
         username
